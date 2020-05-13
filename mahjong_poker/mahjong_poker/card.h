@@ -1,4 +1,4 @@
-
+#pragma once
 #include <iostream>
 
 using namespace std;
@@ -21,59 +21,63 @@ class Card {
 			return this->value;
 		};
 
-		void print_card(Card card){
-			int suit = card.get_suit();
-			int value = card.get_value();
+		void print_card() {
+			int suit = this->suit;
+			int value = this->value;
 
 			cout << "(";
 
-			switch(value){
-				case 1:
-					cout << "Ace";
-					break;
-				case 11:
-					cout << "Jack";
-					break;
-				case 12:
-					cout << "Queen";
-					break;
-				case 13:
-					cout << "King";
-					break;
-				default:
-					if(value >=1 && value <= 13){
-						cout << value;
-					}else{
-						cout << "Error in card's value";
-					}
+			switch (value) {
+			case 1:
+				cout << "Ace";
+				break;
+			case 11:
+				cout << "Jack";
+				break;
+			case 12:
+				cout << "Queen";
+				break;
+			case 13:
+				cout << "King";
+				break;
+			default:
+				if (value >= 1 && value <= 13) {
+					cout << value;
+				}
+				else {
+					cout << "Error in card's value";
+				}
 
 			};
-			
+
 			cout << ", ";
 
-			switch(suit){
-				case 1:
-					cout << "Spade";
-					break;
-				
-				case 2:
-					cout << "Heart";
-					break;
+			switch (suit) {
+			case 1:
+				cout << "Spade";
+				break;
 
-				case 3:
-					cout << "Club";
-					break;
+			case 2:
+				cout << "Heart";
+				break;
 
-				case 4:
-					cout << "Diamond";
-					break;
-				
-				default:
-					cout << "ERROR in Suits";
+			case 3:
+				cout << "Club";
+				break;
+
+			case 4:
+				cout << "Diamond";
+				break;
+
+			default:
+				cout << "ERROR in Suits";
 			};
 
 			cout << ")";
-		}
+		};
+
+
+
 };
 
 
