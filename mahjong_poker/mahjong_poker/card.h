@@ -8,29 +8,31 @@ class Card {
 		int suit;
 		int value;
 	public:
+		Card() {
+			this->suit = 0;
+			this->value = 0;
+		}
+
 		Card (int suit, int value) {
 			this->suit = suit;
 			this->value = value;
-		};
+		}
 
-		int get_suit(){
+		int _get_suit(){
 			return this->suit;
-		};
+		}
 
-		int get_value(){
+		int _get_value(){
 			return this->value;
-		};
+		}
 
-		void print_card() {
+		void _print_card() {
 			int suit = this->suit;
 			int value = this->value;
 
 			cout << "(";
 
 			switch (value) {
-			case 1:
-				cout << "Ace";
-				break;
 			case 11:
 				cout << "Jack";
 				break;
@@ -40,12 +42,15 @@ class Card {
 			case 13:
 				cout << "King";
 				break;
+			case 14:
+				cout << "Ace";
+				break;
 			default:
-				if (value >= 1 && value <= 13) {
+				if (value > 1 && value < 11) {
 					cout << value;
 				}
 				else {
-					cout << "Error in card's value";
+					cerr << "Error in card's value";
 				}
 
 			};
@@ -54,27 +59,27 @@ class Card {
 
 			switch (suit) {
 			case 1:
-				cout << "Spade";
-				break;
-
-			case 2:
-				cout << "Heart";
-				break;
-
-			case 3:
-				cout << "Club";
-				break;
-
-			case 4:
 				cout << "Diamond";
 				break;
 
+			case 2:
+				cout << "Club";
+				break;
+
+			case 3:
+				cout << "Heart";
+				break;
+
+			case 4:
+				cout << "Spade";
+				break;
+
 			default:
-				cout << "ERROR in Suits";
+				cerr << "ERROR in Suits";
 			};
 
-			cout << ")";
-		};
+			cout << ")" << endl;
+		}
 
 
 
