@@ -1,2 +1,4 @@
 ﻿  main.cpp
-  mahjong_poker.vcxproj -> C:\Users\zcnma\Desktop\Programming Projects\mahjong_poker\Debug\mahjong_poker.exe
+C:\Users\zcnma\Desktop\Programming Projects\mahjong_poker\mahjong_poker\player.h(18,6): error C2143: syntax error: missing ';' before '<'
+C:\Users\zcnma\Desktop\Programming Projects\mahjong_poker\mahjong_poker\player.h(18,6): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\zcnma\Desktop\Programming Projects\mahjong_poker\mahjong_poker\player.h(18,21): error C2238: unexpected token(s) preceding ';'
