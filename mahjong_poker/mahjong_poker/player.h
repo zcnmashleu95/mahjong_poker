@@ -5,6 +5,7 @@
 #include <iostream>
 #include "deck.h"
 #include <algorithm>
+#include <map>
 
 
 using namespace std;
@@ -15,7 +16,7 @@ class Player {
 		int player_number = 0;
 
 		vector<Card> hand;
-		map <int, int> memo;
+		map <int, vector<int>> memo;
 
 		bool is_human_player = false;
 		bool is_playing = false;
@@ -26,9 +27,26 @@ class Player {
 			this->player_number = number;
 		}
 
+		map <int, vector<int>> _get_memo() {
+			return this->memo;
+		}
+
+		bool _player_is_playing() {
+			return this->is_playing;
+		}
+
+		bool _player_is_human() {
+			return this->is_human_player;
+		}
+
 		void _set_player_to_human(bool value) {
 			this->is_human_player = value;
 		}
+
+		void _set_player_to_playing(bool value) {
+			this->is_playing = value;
+		}
+
 
 		int _get_player_no() {
 			return this->player_number;
