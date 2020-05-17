@@ -25,15 +25,29 @@ int _compare_cards(Card& a, Card& b);
 int _compare_values(Card& a, Card& b);
 int _compare_suits(Card& a, Card& b);
 Card _highest_card_in_memo_based_on_copies(map<int, vector<int>>& memo, int value);
-
+int _compare_hands(Player& a, Player& b);
 
 //return player's number
-int _compare_hands(Player a, Player b) {
-    map<int, vector<int>> memo_a;
-    map<int, vector<int>> memo_b;
 
-    string hand_a_type = _hand_type_evaluation(a, memo_a);
-    string hand_b_type = _hand_type_evaluation(b, memo_b);
+int evaluate_winner(Player* schedule[], int number_of_players) {
+    int winning_index = 0;
+
+    for (int i = 1; i < number_of_players; i++) {
+        winning_index = _compare_hands(*(schedule[winning_index]), *(schedule[i])) - 1;
+    }
+
+    return winning_index;
+}
+
+
+
+
+
+
+int _compare_hands(Player &a, Player &b) {
+ 
+    string hand_a_type = _hand_type_evaluation(a, a._get_memo());
+    string hand_b_type = _hand_type_evaluation(b, b._get_memo());
 
     int hand_a_type_value = hand_combi_value(hand_a_type);
     int hand_b_type_value = hand_combi_value(hand_b_type);
@@ -45,7 +59,7 @@ int _compare_hands(Player a, Player b) {
         return b._get_player_no();
     }
     else {
-        return _compare_same_hand_type(a, b, memo_a, memo_b, hand_a_type);
+        return _compare_same_hand_type(a, b, a._get_memo(), b._get_memo(), hand_a_type);
     }
     return 0;
 }
