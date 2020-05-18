@@ -31,6 +31,11 @@ class Player {
 			return this->memo;
 		}
 
+		void _set_name(string name) {
+			this->player_name = name;
+		}
+
+
 		bool _player_is_playing() {
 			return this->is_playing;
 		}
@@ -102,7 +107,7 @@ class Player {
 
 		void _draw_card(int number_of_cards, Deck &main_deck) {
 			while (number_of_cards >= 1) {
-				if (main_deck._empty_deck() == false) {
+				if (main_deck._is_deck_empty() == false) {
 					this->hand.push_back(main_deck._top_of_deck());
 
 					main_deck._pop_top_deck();
