@@ -1,5 +1,6 @@
 #pragma once
 
+#include "define_string_messages.h"
 #include <iostream>
 
 class Card {

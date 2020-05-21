@@ -1,12 +1,9 @@
 
 #pragma once
 
-#include "deck.h"
+#include "../Header Files/deck.h"
 
 using namespace std;
-
-//shuffle_deck function -  seed to be changed in future
-
 
 Deck::Deck(bool is_full) {
 	if (is_full == true) {
@@ -20,7 +17,7 @@ void Deck::_add_to_deck(Card a) {
 };
 
 void Deck::_shuffle_deck() {
-	unsigned seed = 1;
+	unsigned seed = unsigned (time(NULL));
 	shuffle(this->deck.begin(), this->deck.end(), default_random_engine(seed));
 };
 

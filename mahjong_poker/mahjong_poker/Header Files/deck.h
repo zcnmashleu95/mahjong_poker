@@ -1,12 +1,15 @@
 
 #pragma once
 
+#include "define_string_messages.h"
 
 #include <algorithm>
 #include <random>
 #include <iostream>
 #include <vector>
 #include "card.h"
+#include<ctime>
+
 
 using namespace std;
 

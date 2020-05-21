@@ -2,7 +2,7 @@
 #pragma once
 
 
-#include "card.h"
+#include "../Header Files/card.h"
 
 using namespace std;
 

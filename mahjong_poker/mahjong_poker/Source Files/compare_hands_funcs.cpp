@@ -6,30 +6,11 @@
 
 //TODO: _compare_same_hand_type for flushes and lower hand values 
 
-#include <iostream>
-#include <string>
-#include "deck.h"
-#include "player.h"
-#include <algorithm>
-#include <map>
-
-using namespace std;
-
-int _compare_same_hand_type(Player& a, Player& b, map<int, vector<int>>& memo_a, map<int, vector<int>>& memo_b, string hand_type);
-int hand_combi_value(string hand_type);
-string _hand_type_evaluation(Player a, map<int, vector<int>>& memo);
-void _update_memo(Card a, map<int, vector<int>>& memo);
-bool _is_royal_flush(Player a, int i);
-bool _is_straight(Player a, int i, bool flush);
-int _compare_cards(Card& a, Card& b);
-int _compare_values(Card& a, Card& b);
-int _compare_suits(Card& a, Card& b);
-Card _highest_card_in_memo_based_on_copies(map<int, vector<int>>& memo, int value);
-int _compare_hands(Player& a, Player& b);
+#include "../Header Files/compare_hands_funcs.h"
 
 //return player's number
 
-int evaluate_winner(Player* schedule[], int number_of_players) {
+int _evaluate_winner(Player* schedule[], int number_of_players) {
     int winning_index = 0;
 
     for (int i = 1; i < number_of_players; i++) {
@@ -42,8 +23,8 @@ int evaluate_winner(Player* schedule[], int number_of_players) {
 
 int _compare_hands(Player &a, Player &b) {
  
-    string hand_a_type = _hand_type_evaluation(a, a._get_memo());
-    string hand_b_type = _hand_type_evaluation(b, b._get_memo());
+    string hand_a_type = _hand_type_evaluation(a);
+    string hand_b_type = _hand_type_evaluation(b);
 
     int hand_a_type_value = hand_combi_value(hand_a_type);
     int hand_b_type_value = hand_combi_value(hand_b_type);
@@ -55,53 +36,33 @@ int _compare_hands(Player &a, Player &b) {
         return b._get_player_no();
     }
     else {
-        return _compare_same_hand_type(a, b, a._get_memo(), b._get_memo(), hand_a_type);
+        return _compare_same_hand_type(a, b, hand_a_type);
     }
     return 0;
 }
 
 
-//return int for the hand combinations based on the comments at top.
+//return an int for the hand combinations based on the comments at top.
 int hand_combi_value(string hand_type) {
-    if (hand_type == "royal_flush") {
-        return 10;
-    }
+    if (hand_type == "royal_flush") {   return 10;  }
 
-    if (hand_type == "straight_flush") {
-        return 9;
-    }
+    if (hand_type == "straight_flush") {    return 9;   }
 
-    if (hand_type == "four_of_a_kind") {
-        return 8;
-    }
+    if (hand_type == "four_of_a_kind") {    return 8;   }
 
-    if (hand_type == "full_house") {
-        return 7;
-    }
+    if (hand_type == "full_house") {    return 7;   }
 
-    if (hand_type == "flush") {
-        return 6;
-    }
+    if (hand_type == "flush") {    return 6;   }
 
-    if (hand_type == "straight") {
-        return 5;
-    }
+    if (hand_type == "straight") {  return 5;   }
 
-    if (hand_type == "three_of_a_kind") {
-        return 4;
-    }
+    if (hand_type == "three_of_a_kind") {  return 4;   }
 
-    if (hand_type == "two_pair") {
-        return 3;
-    }
+    if (hand_type == "two_pair") {    return 3;     }
 
-    if (hand_type == "pair") {
-        return 2;
-    }
+    if (hand_type == "pair") {     return 2;       }
 
-    if (hand_type == "high_card") {
-        return 1;
-    }
+    if (hand_type == "high_card") {     return 1;       }
     else {
         cerr << "Error in _hand_combi_value";
         return 0;
@@ -112,15 +73,17 @@ int hand_combi_value(string hand_type) {
 
 // the int "hand_combination" that reaches a counter of 4 means that the hand has that combination 
 //(eg. int royal_flush = 4, means the hand is a royal flush)
-string _hand_type_evaluation(Player a, map<int, vector<int>>& memo) {
+string _hand_type_evaluation(Player &a) {
     a._hand_sort(1);
-    int size = a._return_size();
+    int size = a._get_hand_size();
     int royal_flush = 0;
     int straight_flush = 0;
     int straight = 0;
 
     int highest_count = 0;
-    int second_highest_count = 0;
+    int sec_highest_count = 0;
+    int highest_count_card_value = 0;
+    int sec_highest_count_card_value = 0;
 
     map<int, vector<int>>::iterator iter;
 
@@ -139,9 +102,9 @@ string _hand_type_evaluation(Player a, map<int, vector<int>>& memo) {
             straight++;
         }
 
-        _update_memo(a._access_card(i), memo);
+        a._update_memo_with_card(a._access_card(i));
     }
-    _update_memo(a._access_card(i + 1), memo);
+    a._update_memo_with_card(a._access_card(i + 1));
 
     if (royal_flush == 4) {
         return "royal_flush";
@@ -153,27 +116,24 @@ string _hand_type_evaluation(Player a, map<int, vector<int>>& memo) {
         return "straight";
     }
 
-    for (iter = memo.begin(); iter != memo.end(); iter++) {
-        if ( (int)iter->second.size() >= highest_count) {
-            second_highest_count = highest_count;
-            highest_count = iter->second.size();
-        }
-    }
+    
+    a._top_two_counts_in_memo(highest_count, sec_highest_count, highest_count_card_value, sec_highest_count_card_value);
 
-
+    cout << "Highest count: " << highest_count << endl;
+    cout << "Sec highest: " << sec_highest_count << endl;
     switch (highest_count) {
     case 4:
         return "four_of_a_kind";
 
     case 3:
-        if (second_highest_count == 2) {
+        if (sec_highest_count == 2) {
             return "full_house";
         }
         else {
             return "three_of_a_kind";
         }
     case 2:
-        if (second_highest_count == 2) {
+        if (sec_highest_count == 2) {
             return "two_pair";
         }
         else {
@@ -187,7 +147,7 @@ string _hand_type_evaluation(Player a, map<int, vector<int>>& memo) {
 }
 
 //comparing hands that have the same type
-int _compare_same_hand_type(Player& a, Player& b, map<int, vector<int>>& memo_a, map<int, vector<int>>& memo_b, string hand_type) {
+int _compare_same_hand_type(Player& a, Player& b, string hand_type) {
     a._hand_sort(1);
     b._hand_sort(1);
 
@@ -214,18 +174,18 @@ int _compare_same_hand_type(Player& a, Player& b, map<int, vector<int>>& memo_a,
         
     }
     else if (hand_type == "four_of_a_kind") {
-        temp_a = _highest_card_in_memo_based_on_copies(memo_a, 4);
-        temp_b = _highest_card_in_memo_based_on_copies(memo_b, 4);
+        temp_a = a._highest_card_in_memo_based_on_copies(4);
+        temp_b = b._highest_card_in_memo_based_on_copies(4);
         
     }
     else if (hand_type == "full_house" || hand_type == "three_of_a_kind") {
-        temp_a = _highest_card_in_memo_based_on_copies(memo_a, 3);
-        temp_b = _highest_card_in_memo_based_on_copies(memo_b, 3);
+        temp_a = a._highest_card_in_memo_based_on_copies(3);
+        temp_b = b._highest_card_in_memo_based_on_copies(3);
         
     }
     else if (hand_type == "two_pair" || hand_type == "pair") {
-        temp_a = _highest_card_in_memo_based_on_copies(memo_a, 2);
-        temp_b = _highest_card_in_memo_based_on_copies(memo_b, 2);
+        temp_a = a._highest_card_in_memo_based_on_copies(2);
+        temp_b = b._highest_card_in_memo_based_on_copies(2);
     }
     
     result = _compare_cards(temp_a, temp_b);
@@ -241,20 +201,7 @@ int _compare_same_hand_type(Player& a, Player& b, map<int, vector<int>>& memo_a,
 }
 
 
-Card _highest_card_in_memo_based_on_copies(map<int, vector<int>>& memo, int number_of_copies) {
-    int highest_suit = 0;
-    int highest_value = 0;
-    map<int, vector<int>>::iterator iter;
 
-    for(iter = memo.begin(); iter != memo.end(); iter++) {
-        if ((int)iter->second.size() == number_of_copies && iter->first > highest_value) {
-            highest_value = iter->first;
-            highest_suit = *(max_element(iter->second.begin(), iter->second.end() ));
-        }
-    }
-
-    return Card(highest_value, highest_suit);
-}
 
 
 //compare based on value first, then suits
@@ -335,11 +282,3 @@ bool _is_straight(Player a, int i, bool flush) {
 
 }
 
-void _update_memo(Card a, map<int, vector<int>>& memo) {
-    int card_value = a._get_value();
-    if (memo.count(card_value) == 0) {
-        memo.insert(pair <int, vector<int>>(card_value, vector<int>()));
-    }
-
-    memo.find(card_value)->second.push_back(a._get_suit());
-}

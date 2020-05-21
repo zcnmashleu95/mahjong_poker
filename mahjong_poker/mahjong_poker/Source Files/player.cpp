@@ -1,6 +1,6 @@
 #pragma once
 
-#include "player.h"
+#include "../Header Files/player.h"
 
 Player::Player(string name, int number) {
 	this->player_name = name;
@@ -62,7 +62,7 @@ Card Player::_access_card(int index) {
 	return result;
 }
 
-int Player::_return_size() {
+int Player::_get_hand_size() {
 	return this->hand.size();
 }
 
@@ -117,10 +117,10 @@ void Player::_hand_sort(int flag) {
 
 	switch (flag) {
 	case 1:
-		sort(this->hand.begin(), this->hand.end(), [](Card a, Card b) -> bool {return (a._get_value() < b._get_value());   });
+		sort(this->hand.begin(), this->hand.end(), [](Card &a, Card &b) -> bool {return (a._get_value() < b._get_value());   });
 		break;
 	case 2:
-		sort(this->hand.begin(), this->hand.end(), [](Card a, Card b) -> bool {return (a._get_suit() < b._get_suit()); });
+		sort(this->hand.begin(), this->hand.end(), [](Card &a, Card &b) -> bool {return (a._get_suit() < b._get_suit()); });
 		break;
 
 	default:
@@ -128,3 +128,59 @@ void Player::_hand_sort(int flag) {
 	}
 }
 
+
+void Player::_update_memo_with_card(Card a) {
+	int card_value = a._get_value();
+	if (this->memo.count(card_value) == 0) {
+		this->memo.insert(pair <int, vector<int>> (card_value, vector<int>()));
+	}
+	this->memo.find(card_value)->second.push_back(a._get_suit());
+}
+
+void Player::_update_player_hand_to_memo() {
+
+	int hand_size = this->_check_hand_size();
+	
+	for (int i = 0; i < hand_size; i++) {
+		this->_update_memo_with_card(this->_access_card(i));
+	}
+
+}
+
+Card Player::_highest_card_in_memo_based_on_copies(int number_of_copies) {
+	int highest_suit = 0;
+	int highest_value = 0;
+	map<int, vector<int>>::iterator iter;
+
+	for (iter = this->memo.begin(); iter != this->memo.end(); iter++) {
+		if ((int)iter->second.size() == number_of_copies && iter->first > highest_value) {
+			highest_value = iter->first;
+			highest_suit = *(max_element(iter->second.begin(), iter->second.end()));
+		}
+	}
+
+	if (highest_value == 0) {
+		cerr << "Error in highest card in memo";
+	}
+
+	return Card(highest_value, highest_suit);
+}
+
+void Player::_top_two_counts_in_memo(int& highest_count, int &sec_highest_count, int &highest_count_card_value, int &sec_highest_count_card_value) {
+	map<int, vector<int>>::iterator iter;;
+
+	for (iter = this->memo.begin(); iter != this->memo.end(); iter++) {
+		if ((int)iter->second.size() >= highest_count) {
+			sec_highest_count = highest_count;
+			sec_highest_count_card_value = highest_count_card_value;
+
+			highest_count = iter->second.size();
+			highest_count_card_value = iter->first;
+
+		}
+	}
+}
+
+void Player::_add_card(Card a) {
+	this->hand.push_back(a);
+}
