@@ -34,7 +34,6 @@ void _computer_player_phase(Player* schedule[], Player& current_bot_player, Deck
 					current_card_value = current_bot_player._access_card(i)._get_value();
 					if (current_card_value != highest_count_card_value) {
 						current_bot_player._discard_card((i + 1), discard_pile);
-						current_bot_player._clear_memo();
 						break;
 					}
 				}
@@ -42,21 +41,21 @@ void _computer_player_phase(Player* schedule[], Player& current_bot_player, Deck
 			else if (highest_count == 3) {
 				if (sec_highest_count == 3) {
 					current_bot_player._discard_card(1, discard_pile);
-					current_bot_player._clear_memo();
+					
 				}
 				else if(sec_highest_count == 2) {
 					for (i = 0; i < hand_size; i++) {
 						current_card_value = current_bot_player._access_card(i)._get_value();
 						if (current_card_value != highest_count_card_value && current_card_value != sec_highest_count_card_value) {
 							current_bot_player._discard_card((i + 1), discard_pile);
-							current_bot_player._clear_memo();
 							break;
 						}
 					}
 				}
 				else {
-					current_bot_player._clear_memo();
+					
 					current_bot_player._discard_card(1, discard_pile);
+					
 				}
 
 			}
@@ -65,16 +64,17 @@ void _computer_player_phase(Player* schedule[], Player& current_bot_player, Deck
 					current_card_value = current_bot_player._access_card(i)._get_value();
 					if (current_card_value != highest_count_card_value && current_card_value != sec_highest_count_card_value) {
 						current_bot_player._discard_card((i + 1), discard_pile);
-						current_bot_player._clear_memo();
 						break;
 					}
 				}
 			}
 			else {
 				current_bot_player._discard_card(1, discard_pile);
-				current_bot_player._clear_memo();
 			}
 
+
+
+			current_bot_player._clear_memo();
 			break;
 
 		case 3:

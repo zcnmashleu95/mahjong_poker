@@ -16,20 +16,20 @@
 #include "../Header Files/computer_player_ai.h"
 
 //For testing//
-#include "../Test_Cases/test_cases.h"
+#include "../Test_Cases/Test Header Files/test_cases.h"
 
 // TODO: deck -> figure out how to best include the constant string messages, 
-// TODO: computer player ai is doing quite well actually. for level 2 difficulty. the funcs a bit too brute force, gonna change
+// TODO: Level 3 Difficulty AI *, try to use more data structures
 // TODO: Going to do some test cases for _eval_hand_type. Some hands have some bugs. Test case done and will look into it
-
+// TODO: Define string messages
+// TODO: Add in more test_cases
 
 
 
 using namespace std;
 
-int main_1() {  
-    string input_error = "Invalid Input, Please Input again";
-
+int main() { 
+    //_test_cases_consolidated();
     string input;
 
     Deck main_deck(true);
@@ -126,13 +126,6 @@ Quit_Phase:
         return 0;
     }
 
-}
-
-
-// For testing
-
-int main() {
-    _test_hand_types();
 }
 
 

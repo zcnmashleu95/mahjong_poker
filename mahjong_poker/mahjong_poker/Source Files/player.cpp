@@ -56,7 +56,7 @@ void Player::_clear_memo() {
 Card Player::_access_card(int index) {
 	int size = this->hand.size();
 	Card result(0, 0);
-	if (index >= 0 && index <= size - 1) {
+	if (index >= 0 && index < size) {
 		result = this->hand[index];
 	}
 	return result;
@@ -77,7 +77,7 @@ void Player::_print_hand() {
 	}
 }
 
-bool Player::_check_hand_size() {
+bool Player::_check_if_hand_size_less_equal_six() {
 	return (this->hand.size() <= 6);
 }
 
@@ -129,8 +129,9 @@ void Player::_hand_sort(int flag) {
 }
 
 
-void Player::_update_memo_with_card(Card a) {
+void Player::_update_memo_with_card(Card &a) {
 	int card_value = a._get_value();
+
 	if (this->memo.count(card_value) == 0) {
 		this->memo.insert(pair <int, vector<int>> (card_value, vector<int>()));
 	}
@@ -139,9 +140,10 @@ void Player::_update_memo_with_card(Card a) {
 
 void Player::_update_player_hand_to_memo() {
 
-	int hand_size = this->_check_hand_size();
+	int hand_size = this->_get_hand_size();
 	
 	for (int i = 0; i < hand_size; i++) {
+		// because access_card(option) is by option and not index
 		this->_update_memo_with_card(this->_access_card(i));
 	}
 
@@ -167,20 +169,48 @@ Card Player::_highest_card_in_memo_based_on_copies(int number_of_copies) {
 }
 
 void Player::_top_two_counts_in_memo(int& highest_count, int &sec_highest_count, int &highest_count_card_value, int &sec_highest_count_card_value) {
-	map<int, vector<int>>::iterator iter;;
+	highest_count = 0;
+	sec_highest_count = 0;
+	highest_count_card_value = 0;
+	sec_highest_count_card_value = 0;
+	map<int, vector<int>>::iterator iter;
+	int size = 1;
 
 	for (iter = this->memo.begin(); iter != this->memo.end(); iter++) {
-		if ((int)iter->second.size() >= highest_count) {
+		size = iter->second.size();
+		if (size > highest_count || (size == highest_count) && iter->first > highest_count_card_value) {
 			sec_highest_count = highest_count;
 			sec_highest_count_card_value = highest_count_card_value;
-
-			highest_count = iter->second.size();
+			highest_count = size;
 			highest_count_card_value = iter->first;
 
+		}
+		else if (size > sec_highest_count || size == sec_highest_count && iter->first > sec_highest_count_card_value) {
+			sec_highest_count = size;
+			sec_highest_count_card_value = iter->first;
 		}
 	}
 }
 
 void Player::_add_card(Card a) {
 	this->hand.push_back(a);
+}
+
+void Player::_print_memo() {
+	map<int, vector<int>>::iterator iter;
+	int size = 0;
+	int i = 0;
+	cout << "Size of memo: " << this->memo.size() << endl;
+	for (iter = this->memo.begin(); iter != this->memo.end(); iter++) {
+		cout << "Value: " << iter->first;
+		cout << " Suits: ";
+		size = iter->second.size();
+		for (i = 0; i < size; i++) {
+			cout << iter->second[i] << ", ";
+		}
+
+		cout << endl;
+	}
+
+	cout << endl << endl;
 }

@@ -4,7 +4,7 @@
 // int for the correspponding hand, 10: royal flush, 9: straight flush, 8: 4 of a kind, 
 //  7: full house, 6: flush, 5: straight, 4: 3 of a kind, 3: two pair, 2: pair, 1: high card
 
-//TODO: _compare_same_hand_type for flushes and lower hand values 
+//TODO: Everythings works but lots to be improved upon/streamlined
 
 #include "../Header Files/compare_hands_funcs.h"
 
@@ -74,11 +74,13 @@ int hand_combi_value(string hand_type) {
 // the int "hand_combination" that reaches a counter of 4 means that the hand has that combination 
 //(eg. int royal_flush = 4, means the hand is a royal flush)
 string _hand_type_evaluation(Player &a) {
+
     a._hand_sort(1);
     int size = a._get_hand_size();
     int royal_flush = 0;
     int straight_flush = 0;
     int straight = 0;
+    int flush = 0;
 
     int highest_count = 0;
     int sec_highest_count = 0;
@@ -87,24 +89,28 @@ string _hand_type_evaluation(Player &a) {
 
     map<int, vector<int>>::iterator iter;
 
-    int i = 0;
-    for (i = 0; i < size - 1; i++) {
+    int index = 0;
+    // [0] to [2], [3] will compare with [4]. size = 5.
+    // this entire section can be a function and be further improved,
+    for (index = 0; index <= size - 1; index++) {
 
-        if (_is_royal_flush(a, i)) {
+        if (_is_royal_flush(a, index)) {
             royal_flush++;
         }
 
-        if (_is_straight(a, i, true)) {
+        if (_is_straight(a, index, true)) {
             straight_flush++;
         }
 
-        if (_is_straight(a, i, false)) {
+        if (_is_straight(a, index, false)) {
             straight++;
         }
 
-        a._update_memo_with_card(a._access_card(i));
+        if (_is_flush(a, index)) {
+            flush++;
+        }
     }
-    a._update_memo_with_card(a._access_card(i + 1));
+
 
     if (royal_flush == 4) {
         return "royal_flush";
@@ -112,15 +118,22 @@ string _hand_type_evaluation(Player &a) {
     else if (straight_flush == 4) {
         return "straight_flush";
     }
+    else if (flush == 4) {
+        return "flush";
+    }
     else if (straight == 4) {
         return "straight";
     }
 
-    
+
+    a._clear_memo();
+    a._update_player_hand_to_memo();
     a._top_two_counts_in_memo(highest_count, sec_highest_count, highest_count_card_value, sec_highest_count_card_value);
 
-    cout << "Highest count: " << highest_count << endl;
-    cout << "Sec highest: " << sec_highest_count << endl;
+    cout << "Highest count: " << highest_count << " Value: " << highest_count_card_value << endl;
+    cout << "Sec highest: " << sec_highest_count << " Value: "<< sec_highest_count_card_value << endl;
+
+
     switch (highest_count) {
     case 4:
         return "four_of_a_kind";
@@ -241,44 +254,48 @@ int _compare_values(Card& a, Card& b) {
 
 
 
-bool _is_royal_flush(Player a, int i) {
-    return (a._access_card(i)._get_value() == a._access_card(i + 1)._get_value() - 1
-        && a._access_card(i)._get_suit() == a._access_card(i + 1)._get_suit() && a._access_card(0)._get_value() == 10);
+bool _is_royal_flush(Player &a, int index) {
+    return (a._access_card(index)._get_value() == a._access_card(index + 1)._get_value() - 1
+        && a._access_card(index)._get_suit() == a._access_card(index + 1)._get_suit() && a._access_card(0)._get_value() == 10);
 }
 
-bool _is_straight(Player a, int i, bool flush) {
+bool _is_straight(Player &a, int index, bool flush) {
     if (flush) {
-        switch (i) {
+        switch (index) {
         case 0:
-            return ((a._access_card(i)._get_value() == a._access_card(i + 1)._get_value() - 1
-                || a._access_card(4)._get_value() - a._access_card(i)._get_value() == 12)
-                && a._access_card(i)._get_suit() == a._access_card(i + 1)._get_suit());
+            return ((a._access_card(index)._get_value() == a._access_card(index + 1)._get_value() - 1
+                || a._access_card(4)._get_value() - a._access_card(index)._get_value() == 12)
+                && a._access_card(index)._get_suit() == a._access_card(index + 1)._get_suit());
 
         case 3:
-            return ((a._access_card(i)._get_value() == a._access_card(i + 1)._get_value() - 1
+            return ((a._access_card(index)._get_value() == a._access_card(index + 1)._get_value() - 1
                 || a._access_card(4)._get_value() - a._access_card(0)._get_value() == 12)
-                && a._access_card(i)._get_suit() == a._access_card(i + 1)._get_suit());
+                && a._access_card(index)._get_suit() == a._access_card(index + 1)._get_suit());
 
         default:
-            return (a._access_card(i)._get_value() == a._access_card(i + 1)._get_value() - 1
-                && a._access_card(i)._get_suit() == a._access_card(i + 1)._get_suit());
+            return (a._access_card(index)._get_value() == a._access_card(index + 1)._get_value() - 1
+                && a._access_card(index)._get_suit() == a._access_card(index + 1)._get_suit());
         }
     }
     else {
-        switch (i) {
+        switch (index) {
         case 0:
-            return (a._access_card(i)._get_value() == a._access_card(i + 1)._get_value() - 1
-                || a._access_card(4)._get_value() - a._access_card(i)._get_value() == 12);
+            return (a._access_card(index)._get_value() == a._access_card(index + 1)._get_value() - 1
+                || a._access_card(4)._get_value() - a._access_card(index)._get_value() == 12);
 
         case 3:
-            return (a._access_card(i)._get_value() == a._access_card(i + 1)._get_value() - 1
+            return (a._access_card(index)._get_value() == a._access_card(index + 1)._get_value() - 1
                 || a._access_card(4)._get_value() - a._access_card(0)._get_value() == 12);
 
         default:
-            return (a._access_card(i)._get_value() == a._access_card(i + 1)._get_value() - 1);
+            return (a._access_card(index)._get_value() == a._access_card(index + 1)._get_value() - 1);
 
         }
     }
 
 }
 
+
+bool _is_flush(Player &a, int index) {
+    return (a._access_card(index)._get_suit() == a._access_card(index + 1)._get_suit());
+}

@@ -34,8 +34,10 @@ class Player {
 		string _get_player_name();
 		vector<Card> _access_hand();
 
-		void _update_memo_with_card(Card a);
+		void _update_memo_with_card(Card &a);
 		void _update_player_hand_to_memo();
+		void _print_memo();
+
 		Card _highest_card_in_memo_based_on_copies(int number_of_copies);
 		void _top_two_counts_in_memo(int& highest_count, int& second_highest_count, int &highest_count_card_value, int& sec_highest_count_card_value);
 
@@ -45,7 +47,7 @@ class Player {
 		int _get_hand_size();
 
 		void _print_hand();
-		bool _check_hand_size();
+		bool _check_if_hand_size_less_equal_six();
 		void _discard_card(int option, Deck& discard_pile);
 		void _draw_card(int number_of_cards, Deck& main_deck);
 		void _hand_sort(int flag);
