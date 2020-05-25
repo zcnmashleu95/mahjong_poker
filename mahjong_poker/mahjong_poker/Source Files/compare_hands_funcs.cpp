@@ -14,58 +14,65 @@ int _evaluate_winner(Player* schedule[], int number_of_players) {
     int winning_index = 0;
 
     for (int i = 1; i < number_of_players; i++) {
-        winning_index = _compare_hands(*(schedule[winning_index]), *(schedule[i])) - 1;
+        cout << "Compare :" << winning_index << " " << i << endl;
+        winning_index = _compare_hands(*(schedule[winning_index]), *(schedule[i]));
+        cout << "Winner is  " << winning_index << endl;
     }
 
     return winning_index;
 }
 
 
+//returns the index in the schedule
 int _compare_hands(Player &a, Player &b) {
  
-    string hand_a_type = _hand_type_evaluation(a);
-    string hand_b_type = _hand_type_evaluation(b);
+    
+    int hand_a_type_value = _hand_type_evaluation(a);
+    int hand_b_type_value = _hand_type_evaluation(b);
 
-    int hand_a_type_value = hand_combi_value(hand_a_type);
-    int hand_b_type_value = hand_combi_value(hand_b_type);
+    string hand_a_type = _hand_type_in_string(hand_a_type_value);
+    string hand_b_type = _hand_type_in_string(hand_b_type_value);
 
     if (hand_a_type_value > hand_b_type_value) {
-        return a._get_player_no();
+        return a._get_player_no() - 1;
     }
     else if (hand_b_type_value > hand_a_type_value) {
-        return b._get_player_no();
+        return b._get_player_no() - 1;
     }
     else {
-        return _compare_same_hand_type(a, b, hand_a_type);
+        return _compare_same_hand_type(a, b, hand_a_type_value) - 1;
     }
     return 0;
 }
 
 
 //return an int for the hand combinations based on the comments at top.
-int hand_combi_value(string hand_type) {
-    if (hand_type == "royal_flush") {   return 10;  }
+string _hand_type_in_string(int hand_type) {
+    switch (hand_type) {
+        case 10:
+            return "Royal Flush";
+        case 9:
+            return "Straight Flush";
+        case 8:
+            return "Four of a kind";
+        case 7:
+            return "Full House";
+        case 6:
+            return "Flush";
+        case 5:
+            return "Straight";
+        case 4:
+            return "Three of a kind";
+        case 3:
+            return "Two Pair";
+        case 2:
+            return "Pair";
+        case 1:
+            return "High Card";
 
-    if (hand_type == "straight_flush") {    return 9;   }
-
-    if (hand_type == "four_of_a_kind") {    return 8;   }
-
-    if (hand_type == "full_house") {    return 7;   }
-
-    if (hand_type == "flush") {    return 6;   }
-
-    if (hand_type == "straight") {  return 5;   }
-
-    if (hand_type == "three_of_a_kind") {  return 4;   }
-
-    if (hand_type == "two_pair") {    return 3;     }
-
-    if (hand_type == "pair") {     return 2;       }
-
-    if (hand_type == "high_card") {     return 1;       }
-    else {
-        cerr << "Error in _hand_combi_value";
-        return 0;
+        default:
+            cerr << "Error in Hand type evaluation";
+            return "Error";
     }
 
 }
@@ -73,7 +80,8 @@ int hand_combi_value(string hand_type) {
 
 // the int "hand_combination" that reaches a counter of 4 means that the hand has that combination 
 //(eg. int royal_flush = 4, means the hand is a royal flush)
-string _hand_type_evaluation(Player &a) {
+
+int _hand_type_evaluation(Player &a) {
 
     a._hand_sort(1);
     int size = a._get_hand_size();
@@ -91,7 +99,7 @@ string _hand_type_evaluation(Player &a) {
 
     int index = 0;
     // [0] to [2], [3] will compare with [4]. size = 5.
-    // this entire section can be a function and be further improved,
+    // this entire section can be further improved,
     for (index = 0; index <= size - 1; index++) {
 
         if (_is_royal_flush(a, index)) {
@@ -113,54 +121,55 @@ string _hand_type_evaluation(Player &a) {
 
 
     if (royal_flush == 4) {
-        return "royal_flush";
+        return 10;
     }
     else if (straight_flush == 4) {
-        return "straight_flush";
+        return 9;
     }
     else if (flush == 4) {
-        return "flush";
+        return 6;
     }
     else if (straight == 4) {
-        return "straight";
+        return 5;
     }
 
 
     a._clear_memo();
+
     a._update_player_hand_to_memo();
     a._top_two_counts_in_memo(highest_count, sec_highest_count, highest_count_card_value, sec_highest_count_card_value);
 
-    cout << "Highest count: " << highest_count << " Value: " << highest_count_card_value << endl;
-    cout << "Sec highest: " << sec_highest_count << " Value: "<< sec_highest_count_card_value << endl;
+    //cout << "Highest count: " << highest_count << " Value: " << highest_count_card_value << endl;
+    //cout << "Sec highest: " << sec_highest_count << " Value: "<< sec_highest_count_card_value << endl;
 
 
     switch (highest_count) {
     case 4:
-        return "four_of_a_kind";
+        return 8;
 
     case 3:
         if (sec_highest_count == 2) {
-            return "full_house";
+            return 7;
         }
         else {
-            return "three_of_a_kind";
+            return 4;
         }
     case 2:
         if (sec_highest_count == 2) {
-            return "two_pair";
+            return 3;
         }
         else {
-            return "pair";
+            return 2;
         }
 
     default:
-        return "high_card";
+        return 1;
     }
 
 }
 
-//comparing hands that have the same type
-int _compare_same_hand_type(Player& a, Player& b, string hand_type) {
+//comparing hands that have the same type, will return the winning PLAYER NUMBER
+int _compare_same_hand_type(Player& a, Player& b, int hand_type) {
     a._hand_sort(1);
     b._hand_sort(1);
 
@@ -171,42 +180,61 @@ int _compare_same_hand_type(Player& a, Player& b, string hand_type) {
 
     int index = 4;
 
-    if (hand_type == "royal_flush" || hand_type == "flush" || hand_type == "straight" || hand_type == "high_card") {
+    //royal flush, flush, straight, high_card,
+    if (hand_type == 10 || hand_type == 6 || hand_type == 5 || hand_type == 1) {
         temp_a = a._access_card(index);
         temp_b = b._access_card(index);
     }
-    else if (hand_type == "straight_flush") {
-
+    else if (hand_type == 9) {
         //for exception if straight flush hand starts with ace
-        if (a._access_card(4)._get_value() == 14 && index == 4) {
-            temp_a = a._access_card(3);
+        if (a._access_card(4)._get_value() == 14 && index == 4) {   
+            temp_a = a._access_card(3); 
         }
-        else if (b._access_card(4)._get_value() == 14 && index == 4) {
-            temp_b = a._access_card(3);   
+        else {
+            temp_a = a._access_card(index);
+        }
+
+
+        if (b._access_card(4)._get_value() == 14 && index == 4) { 
+            temp_b = b._access_card(3); 
+        }
+        else {
+            temp_b = b._access_card(index);
         }
         
     }
-    else if (hand_type == "four_of_a_kind") {
+    else if (hand_type == 8) {
+        //four of a kind
         temp_a = a._highest_card_in_memo_based_on_copies(4);
         temp_b = b._highest_card_in_memo_based_on_copies(4);
         
     }
-    else if (hand_type == "full_house" || hand_type == "three_of_a_kind") {
+    else if (hand_type == 7 || hand_type == 4) {
+        //full house, 3 of a kind
         temp_a = a._highest_card_in_memo_based_on_copies(3);
         temp_b = b._highest_card_in_memo_based_on_copies(3);
         
     }
-    else if (hand_type == "two_pair" || hand_type == "pair") {
+    else if (hand_type == 3 || hand_type == 2) {
+        //two_pair and pair
         temp_a = a._highest_card_in_memo_based_on_copies(2);
         temp_b = b._highest_card_in_memo_based_on_copies(2);
     }
     
+
+    cout << a._get_player_no() - 1 << ": ";
+    temp_a._print_card();
+    cout << endl;
+    cout << b._get_player_no() - 1 << ": ";
+    temp_b._print_card();
+    cout << endl;
+
     result = _compare_cards(temp_a, temp_b);
 
     if (result == 1) {
         return a._get_player_no();
     }
-    else {
+    else if (result == -1){
         return b._get_player_no();
     }
 
@@ -214,9 +242,7 @@ int _compare_same_hand_type(Player& a, Player& b, string hand_type) {
 }
 
 
-
-
-
+//
 //compare based on value first, then suits
 int _compare_cards(Card& a, Card& b) {
     int result = 0;
@@ -230,26 +256,29 @@ int _compare_cards(Card& a, Card& b) {
 }
 
 
-int _compare_suits(Card& a, Card& b) {
-    if (a._get_suit() > b._get_suit()) {
-        return 1;
-    }
-    else {
-        return 0;
-    }
-}
-
 int _compare_values(Card& a, Card& b) {
-    if (a._get_suit() > b._get_suit()) {
+    if (a._get_value() > b._get_value()) {
         return 1;
     }
-    else if (b._get_suit() > a._get_suit()) {
+    else if (b._get_value() > a._get_value()) {
         return -1;
     }
     else {
         return 0;
     }
 }
+
+
+int _compare_suits(Card& a, Card& b) {
+    if (a._get_suit() > b._get_suit()) {
+        return 1;
+    }
+    else {
+        return -1;
+    }
+}
+
+
 
 
 

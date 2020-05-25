@@ -4,6 +4,7 @@
 #include "player.h"
 #include "deck.h"
 #include "card.h"
+#include "compare_hands_funcs.h"
 
 using namespace std;
 //for easy phase, ai discards the lowest valued card every turn

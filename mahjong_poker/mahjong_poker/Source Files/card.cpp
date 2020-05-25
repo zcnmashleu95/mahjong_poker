@@ -43,7 +43,7 @@ void Card::_print_card() {
 			cout << value;
 		}
 		else {
-			cerr << "Error in card's value";
+			cerr << "Error in card's Suit";
 		}
 
 	}
@@ -68,7 +68,7 @@ void Card::_print_card() {
 		break;
 
 	default:
-		cerr << "ERROR in Suits";
+		cerr << "ERROR in Card's Value";
 	};
 
 	cout << ")" << endl;

@@ -20,3 +20,9 @@ void _test_cases_consolidated();
 
 void _test_hand_types();
 
+void _test_compare_card();
+
+
+void _load_royal_flush(Player& a, int suits);
+void _load_straight_flush(Player& a, int suits, int start);
+

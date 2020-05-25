@@ -20,7 +20,6 @@
 
 // TODO: deck -> figure out how to best include the constant string messages, 
 // TODO: Level 3 Difficulty AI *, try to use more data structures
-// TODO: Going to do some test cases for _eval_hand_type. Some hands have some bugs. Test case done and will look into it
 // TODO: Define string messages
 // TODO: Add in more test_cases
 
@@ -46,7 +45,7 @@ int main() {
 
     int no_of_players = 0;
     int human_player_no = 0;
-    int difficulty = 2;
+    int difficulty = 1;
     int cheats = 1;
     int human_is_quitting = 0;
 
@@ -63,8 +62,11 @@ int main() {
     main_deck._shuffle_deck();
 	
 Start_Of_Game:
-    cout << WELCOME_MESSAGE <<endl;
-    cout << GAME_INSTRUCTIONS << endl;
+    cout << WELCOME_MESSAGE <<endl << endl;
+    cout << GAME_INSTRUCTIONS << endl << endl;
+
+    cout << HOW_TO_WIN << endl << endl;;
+
 
     _set_number_of_points(input, points);
 
@@ -74,11 +76,18 @@ Start_Of_Game:
 
     _set_human_player_index(input, human_player_no, no_of_players);
 
+    _set_difficulty(input, difficulty);
+
     _set_cheats(input, cheats);
 
     _set_human_player_in_schedule(players_turn_schedule, no_of_players, human_player_no, main_deck);
 
 Game_Match_Phase:
+   
+    system("cls");
+
+    cout << "Match Round: " << (round + 1) << endl << endl;
+
     while (main_deck._is_deck_empty() == false) {
 
         current_player_ptr = players_turn_schedule[turn % no_of_players];
@@ -106,10 +115,12 @@ Game_Match_Phase:
         turn = turn + 1;
     }
 
-    //Evaluation_phase
+    _print_all_hands(players_turn_schedule);
+
+    // NEED TO DEBUG More
     _end_of_game_evaluation(players_turn_schedule, no_of_players, winner_index, points, wager);
     
-    _print_all_hands(players_turn_schedule);
+    
 
 Quit_Phase:
 
@@ -120,6 +131,7 @@ Quit_Phase:
         goto Game_Match_Phase;
     }
     else if (after_quit_goto == 2) {
+        system("cls");
         goto Start_Of_Game;
     }
     else {
@@ -129,3 +141,7 @@ Quit_Phase:
 }
 
 
+int main_1() {
+    _test_cases_consolidated();
+    return 0;
+}

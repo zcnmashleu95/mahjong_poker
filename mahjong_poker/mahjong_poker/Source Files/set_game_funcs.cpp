@@ -2,9 +2,25 @@
 
 #include "../Header Files/set_game_funcs.h"
 
+
+void _set_difficulty(string& input, int& difficulty) {
+Set_Difficulty:
+    cout << INPUT_DIFFICULTY << endl;
+    getline(cin, input);
+    if (input.size() == 1 && _input_is_valid(input.front(), "123")) {
+        difficulty = int(input.at(0) - '0');
+    }
+    else {
+        cerr << INVALID_INPUT << endl;
+        goto Set_Difficulty;
+    }
+
+}
+
+
 void _set_number_of_points(string& input, int &points) {
 Set_Points:
-    cout << "How many points" << endl;
+    cout << INPUT_POINTS << endl;
     getline(cin, input);
     if (input.size() >= 1 || input.size() <= 3 && stoi(input) >= 1 && stoi(input) <= 100) {
         points = stoi(input);
@@ -17,7 +33,7 @@ Set_Points:
 
 void _set_wager(string& input, int& wager, int& points) {
 Set_Wager:
-    cout << "How much points per wager (must be <= points)" << endl;
+    cout << INPUT_WAGER << endl;
     getline(cin, input);
     int temp = stoi(input);
     if (stoi(input) >= 1 && stoi(input) <= points) {
@@ -31,7 +47,7 @@ Set_Wager:
 
 void _set_number_of_com_players(string& input, int& no_of_players) {
 Number_Of_Computer_Players_Phase:
-    cout << "How many Computer Players?" << endl;
+    cout << INPUT_COM << endl;
     getline(cin, input);
 
     if (input.size() == 1 && _input_is_valid(input.at(0), "123") == true) {
@@ -46,7 +62,7 @@ Number_Of_Computer_Players_Phase:
 
 void _set_cheats(string& input, int& cheats) {
 Enable_Cheats:
-    cout << "Do you want to enable cheats? 1: Default(no cheats) 2: Print Opponents' Hands during your turn 3:Print Deck during your turn 4:Combination of 2 and 3" << endl;
+    cout << INPUT_CHEATS << endl;
 
     getline(cin, input);
     if (input.size() == 1 && _input_is_valid(input.at(0), "1234")) {
@@ -60,7 +76,7 @@ Enable_Cheats:
 
 void _set_human_player_index(string& input, int& human_player_no, int& no_of_players) {
 Select_Human_Player:
-    cout << "Which Player do you want to be? This will last till the entire game is over" << endl;
+    cout << INPUT_HUMAN << endl;
     getline(cin, input);
     if (input.size() == 1 && (int(input.at(0) - '0') >= 1) && (int(input.at(0) - '0') <= no_of_players)) {
         human_player_no = int(input.at(0) - '0');

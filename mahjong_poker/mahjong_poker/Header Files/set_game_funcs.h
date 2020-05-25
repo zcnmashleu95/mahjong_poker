@@ -10,6 +10,7 @@
 
 using namespace std;
 
+void _set_difficulty(string& input, int& difficulty);
 void _set_number_of_points(string& input, int &points);
 void _set_wager(string& input, int& wager, int& points);
 void _set_number_of_com_players(string& input, int& no_of_players);

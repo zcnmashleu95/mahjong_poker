@@ -75,6 +75,7 @@ void Player::_print_hand() {
 		this->hand[i]._print_card();
 		option = option + 1;
 	}
+	cout << endl;
 }
 
 bool Player::_check_if_hand_size_less_equal_six() {
@@ -88,9 +89,9 @@ void Player::_discard_card(int option, Deck& discard_pile) {
 	if (option >= 0 && option < size) {
 		cout << "Player " << this->player_name << " Discards: ";
 		this->hand.at(option)._print_card();
+		cout << endl;
 
 		discard_pile._add_to_deck(this->hand.at(option));
-
 		this->hand.erase(this->hand.begin() + option);
 	}
 }
@@ -156,6 +157,7 @@ Card Player::_highest_card_in_memo_based_on_copies(int number_of_copies) {
 
 	for (iter = this->memo.begin(); iter != this->memo.end(); iter++) {
 		if ((int)iter->second.size() == number_of_copies && iter->first > highest_value) {
+
 			highest_value = iter->first;
 			highest_suit = *(max_element(iter->second.begin(), iter->second.end()));
 		}
@@ -165,7 +167,7 @@ Card Player::_highest_card_in_memo_based_on_copies(int number_of_copies) {
 		cerr << "Error in highest card in memo";
 	}
 
-	return Card(highest_value, highest_suit);
+	return Card(highest_suit, highest_value);
 }
 
 void Player::_top_two_counts_in_memo(int& highest_count, int &sec_highest_count, int &highest_count_card_value, int &sec_highest_count_card_value) {
@@ -213,4 +215,33 @@ void Player::_print_memo() {
 	}
 
 	cout << endl << endl;
+}
+
+
+int Player::_most_suit_count() {
+	int suits_count[4] = { 0 };
+	int size = this->hand.size();
+	int max = -1;
+	int i = 0;
+	for (i = 0; i < size; i++) {
+		suits_count[this->hand[i]._get_suit() - 1];
+	}
+
+	for (i = 0; i < 4; i++) {
+		if (suits_count[i] >= max) {
+			max = i;
+		}
+	}
+
+	return max + 1;
+}
+
+Player:: ~Player() {
+	//delete player_name;
+	//delete player_number;
+
+	//delete hand;
+	//delete memo;
+	//delete is_human_player;
+	//delete is_playing;
 }

@@ -8,10 +8,10 @@
 
 using namespace std;
 
-int _compare_same_hand_type(Player& a, Player& b, string hand_type);
-int hand_combi_value(string hand_type);
+int _compare_same_hand_type(Player& a, Player& b, int hand_type);
+string _hand_type_in_string(int hand_type);
 
-string _hand_type_evaluation(Player& a);
+int _hand_type_evaluation(Player& a);
 
 bool _is_royal_flush(Player &a, int index);
 bool _is_straight(Player &a, int index, bool flush);
