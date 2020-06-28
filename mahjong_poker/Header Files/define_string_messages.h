@@ -22,6 +22,6 @@ using namespace std;
 
 #define PLAYER_OPTIONS "What do you want to do? Input the number for the following options. \n1: Continue to the Discard Phase  2: Sort your hand by Card value  3: Sort your hand by Card suit  4: Print the Discard Pile  0: Resign "
 #define CONTINUE_OR_QUIT "The match is over. Do you want to \n1: Continue to a new match  9: New Game  0: Quit"
-#define NEW_OR_QUIT "Game Over. Do you want to \n1: Continue to a new match  9: New Game  0: Quit"
+#define NEW_OR_QUIT "Game Over. Do you want to \n1: New Game 0: Quit"
 
 #define CREDITS "Thank you for playing the game. Hope you enjoyed it. Done by Lam Sze Chun"

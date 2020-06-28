@@ -47,14 +47,14 @@ int main() {
     int cheats = 1;
     int human_is_quitting = 0;
 
-    Player* current_player_ptr = NULL;
+    
     int winner_index = 0;
     int points = 0;
     int wager = 0;
 
     int after_quit_goto = 0;
 
-
+    Player* current_player_ptr = NULL;
     Player* players_turn_schedule[4] = {&player_1, &player_2, &player_3, &player_4};
 
     main_deck._shuffle_deck();
@@ -136,6 +136,7 @@ Quit_Phase:
         goto Start_Of_Game;
     }
     else {
+        cout << CREDITS << endl;
         return 0;
     }
 

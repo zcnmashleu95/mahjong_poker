@@ -99,7 +99,7 @@ void _com_player_difficult_ai(Player& current_bot_player, Deck& main_deck, Deck&
 	hand_value = _hand_type_evaluation(current_bot_player);
 	current_bot_player._draw_card(1, main_deck);
 
-	if (hand_value >= 7) {
+	if (hand_value >= 5) {
 		current_bot_player._discard_card(6, discard_pile);
 	}
 	else {
@@ -110,46 +110,41 @@ void _com_player_difficult_ai(Player& current_bot_player, Deck& main_deck, Deck&
 													sec_highest_count_card_value);
 
 
-		switch (highest_count) {
-		case 4:
-			_discard_not_max_count(current_bot_player, highest_count_card_value, discard_pile);
-			break;
-		case 3:
-			if (sec_highest_count == 3) {
-				current_bot_player._discard_card(1, discard_pile);
-				break;
-			}
-			else if (sec_highest_count == 2) {
-				_discard_not_max_count_and_sec(current_bot_player, highest_count_card_value, sec_highest_count_card_value, discard_pile);
-				break;
-			}
-			else {
-				current_bot_player._discard_card(1, discard_pile);
-				break;
-			}
-
-			break;
-
-		case 2:
-			if (sec_highest_count == 2) {
-				_discard_not_max_count_and_sec(current_bot_player, highest_count_card_value, sec_highest_count_card_value, discard_pile);
-				
-			}
-			else {
+		if (max_suit_count == 4) {
+			_discard_not_max_suit(current_bot_player, max_suit_value, discard_pile);
+		}
+		else {
+			switch (highest_count) {
+			case 4:
 				_discard_not_max_count(current_bot_player, highest_count_card_value, discard_pile);
-			}
-			
-			break;
-		default:
-			if (max_suit_count >= 3) {
-				_discard_not_max_suit(current_bot_player, max_suit_value, discard_pile);
 				break;
-			}
-			else {
+			case 3:
+				if (sec_highest_count == 3) {
+					current_bot_player._discard_card(1, discard_pile);
+				}
+				else if (sec_highest_count == 2) {
+					_discard_not_max_count_and_sec(current_bot_player, highest_count_card_value, sec_highest_count_card_value, discard_pile);
+				}
+				else {
+					_discard_not_max_count(current_bot_player, highest_count_card_value, discard_pile);
+				}
+
+				break;
+
+			case 2:
+				if (sec_highest_count == 2) {
+					_discard_not_max_count_and_sec(current_bot_player, highest_count_card_value, sec_highest_count_card_value, discard_pile);
+				}
+				else {
+					_discard_not_max_count(current_bot_player, highest_count_card_value, discard_pile);
+				}
+
+				break;
+			default:
 				current_bot_player._discard_card(1, discard_pile);
 				break;
-			}
 
+			}
 		}
 	}
 }

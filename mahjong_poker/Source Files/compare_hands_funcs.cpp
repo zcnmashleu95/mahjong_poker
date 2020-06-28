@@ -1,7 +1,7 @@
 #pragma once
 
 // HELPER FUNCTIONS for Comparing between hands
-// int for the correspponding hand, 10: royal flush, 9: straight flush, 8: 4 of a kind, 
+// int values for the correspponding hand, 10: royal flush, 9: straight flush, 8: 4 of a kind, 
 //  7: full house, 6: flush, 5: straight, 4: 3 of a kind, 3: two pair, 2: pair, 1: high card
 
 //TODO: Everythings works but lots to be improved upon/streamlined
@@ -289,6 +289,7 @@ bool _is_royal_flush(Player &a, int index) {
         && a._access_card(index)._get_suit() == a._access_card(index + 1)._get_suit() && a._access_card(0)._get_value() == 10);
 }
 
+// Ace = 14, Ace - 2 = 12
 bool _is_straight(Player &a, int index, bool flush) {
     if (flush) {
         switch (index) {
