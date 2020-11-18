@@ -1,38 +1,38 @@
 ﻿  card.cpp
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
   compare_hands_funcs.cpp
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
   computer_player_ai.cpp
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
   deck.cpp
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Source Files\deck.cpp(37,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Source Files\deck.cpp(37,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   during_match_funcs.cpp
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
   main.cpp
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
   player.cpp
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Source Files\player.cpp(57,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Source Files\player.cpp(66,26): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Source Files\player.cpp(71,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Source Files\player.cpp(87,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Source Files\player.cpp(182,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Source Files\player.cpp(209,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Source Files\player.cpp(223,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Source Files\player.cpp(57,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Source Files\player.cpp(66,26): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Source Files\player.cpp(71,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Source Files\player.cpp(87,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Source Files\player.cpp(182,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Source Files\player.cpp(209,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Source Files\player.cpp(223,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   set_game_funcs.cpp
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Source Files\set_game_funcs.cpp(116,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Source Files\set_game_funcs.cpp(116,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   test_cases.cpp
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
-C:\Users\zcnma\Desktop\repositary\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(13,1): warning C4005: 'HAND_ORDER': macro redefinition
+C:\Users\zcnma\Desktop\SchProject\mahjong_poker\mahjong_poker\Header Files\define_string_messages.h(11): message : see previous definition of 'HAND_ORDER'
   Generating Code...
-  mahjong_poker.vcxproj -> C:\Users\zcnma\Desktop\repositary\mahjong_poker\x64\Debug\mahjong_poker.exe
+  mahjong_poker.vcxproj -> C:\Users\zcnma\Desktop\SchProject\mahjong_poker\x64\Debug\mahjong_poker.exe
