@@ -9,6 +9,3 @@ to change their hand as the game goes on.
 
 How to win: When the deck is drawn up and is empty, each player will compare their hands. The player with the best hand wins.
 
-Notes:
-The game is still in the making and is text-based. 
-There is still lots to be done, but I hope to complete this by June 2020.
